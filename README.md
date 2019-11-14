@@ -4,8 +4,6 @@ Code for "The evolution of information integration  under social influence" by A
 
 This reprository contains the following parts:
 
-Emprical Data: `All_easy_rawdata2.csv`  
-
 Code for run the Evolutionary Algorithm:
 - Run the evolutionary algorithm `EA_simulations_cluster.R`.
 - Diagnosis and plots are done with `EA_analys_cluster.R`, which also saves the results in LaTex tables.
