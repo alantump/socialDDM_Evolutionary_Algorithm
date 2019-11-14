@@ -1,0 +1,73 @@
+---
+title: "EA_Results_markdown"
+author: "Alan"
+date: "15 10 2019"
+output: html_document
+---
+
+```{r show}
+
+
+
+
+pop_size
+number_of_generations
+
+
+gs_vec
+fnc_vec
+initial_variance_vec
+initial_knowledge_vec
+average_pdrift_vec
+variance_pdrift
+time_cost_vec 
+collective_vec
+
+
+
+```
+
+
+
+```{r showplot, fig.width=12, fig.height=4.5}
+result_grid
+
+
+
+#Static environment with evolving sharing and innovation
+load(paste0(name,"/",1,name,".RData"))
+final_data_all<-expand.grid(Group_Size=gs_vec,FNC=fnc_vec,average_pdrift=average_pdrift_vec,initial_knowledge=initial_knowledge_vec,initial_variance=initial_variance_vec,time_cost=time_cost_vec,collective=collective_vec,m1=NA,sd1=NA,m2=NA,sd2=NA,m3=NA,sd3=NA,m4=NA,sd4=NA,m5=NA,sd5=NA,m6=NA,sd6=NA,m7=NA,sd7=NA)  
+final_data_all[1,]<-final_data[1,]
+
+
+for (loop_parameters in 1:nrow(final_data)){
+ if( file.exists(paste0(name,"/",loop_parameters,name,".RData")) ){
+   load(paste0(name,"/",loop_parameters,name,".RData"))
+   final_data_all[loop_parameters,]<-final_data[loop_parameters,]
+      } else {
+     print("File missing")
+     }
+  print(final_data[loop_parameters,1:7])
+  par(mfrow=c(1,4))
+  matplot((result[[1]]),type="l",xlab="Generation",ylab="bound_initial_bias",col="gray",ylim=c(lb[1],ub[1]));lines(1:number_of_generations,apply(result[[1]],1,mean),lwd=2)
+  matplot((result[[2]]),type="l",xlab="Generation",ylab="bound_theta",col="gray",ylim=c(lb[2],ub[2]));lines(1:number_of_generations,apply(result[[2]],1,mean),lwd=2)
+  matplot((result[[3]]),type="l",xlab="Generation",ylab="delta",col="gray",ylim=c(lb[3],ub[3]));lines(1:number_of_generations,apply(result[[3]],1,mean),lwd=2)
+  matplot((result[[4]]),type="l",xlab="Generation",ylab="SI use",col="gray",ylim=c(lb[4],ub[4]));lines(1:number_of_generations,apply(result[[4]],1,mean),lwd=2)
+  #matplot((result[[5]]),type="l",xlab="Generation",ylab="First",col="gray",ylim=c(lb[5],ub[5]));lines(1:number_of_generations,apply(result[[5]],1,mean),lwd=2)
+  #matplot((result[[6]]),type="l",xlab="Generation",ylab="Perfomance",col="gray",ylim=c(-0.1,1));lines(1:number_of_generations,apply(result[[6]],1,mean),lwd=2)
+  #matplot((result[[7]]),type="l",xlab="Generation",ylab="Perfomance of first",col="gray",ylim=c(-0.1,1));lines(1:number_of_generations,apply(result[[7]],1,mean),lwd=2)
+
+}
+
+```
+
+
+
+
+```{r show3}
+print(simulation)
+
+print(runEA)
+
+
+```
